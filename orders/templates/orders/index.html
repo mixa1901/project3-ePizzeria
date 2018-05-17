@@ -1,0 +1,425 @@
+{% extends "orders/layout.html" %}
+
+{% block title %}
+    User
+{% endblock %}
+
+{% block navigation %}
+		<a href="{% url 'myorders' %}" class="nav-item nav-link">My orders</a>
+		<a href="{% url 'logout' %}" class="nav-item nav-link">Logout ({{ username }})</a>
+
+{% endblock %}
+
+{% block main %}
+
+<h6 class="text-center">Hello, {{ first_name }} {{ last_name }}! Make an order, please!</h6>
+{% if error %}
+	<div class="alert alert-warning" role="alert">
+			{{error}}
+	</div>
+{% endif%}
+<div class="row">
+
+	<div class="col-9 col-sm-9 col-md-9 col-xl-9">
+
+		<h5>Menu</h5>
+		
+		<h6 class='text-center'>Regular pizza</h6>
+
+			<table class="table">
+				<thead>
+				<tr>
+					<th scope="col" style="width: 50%">Kind</th>
+					<th scope="col" style="width: 30%" class="text-center">Toppings</th>
+					<th scope="col" style="width: 10%" class="text-center">Small</th>
+					<th scope="col" style="width: 10%" class="text-center">Large</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for reg_pizza in reg_pizza %}
+				<tr>
+						<form action="{% url 'order' 'Reg_pizza' reg_pizza.id %}">
+								<td style="width: 50%">{{reg_pizza.kind}}</td>
+							{% if reg_pizza.amount_toppings == 0 %}
+								<td style="width: 30%"></td>
+							{% elif  reg_pizza.amount_toppings == 1 %}
+								<td style ='width:30%'>
+										{% for x in "x" %}
+											<select class="form-control form-control-sm" name="topping">
+													<option value=''>Choose...</option>
+												{% for topping in topping %}	
+													<option value="{{topping.id}}">{{topping.name}}</option>
+												{% endfor %}
+		
+											</select>
+										{% endfor %}
+								</td>
+							{% elif  reg_pizza.amount_toppings == 2 %}
+							<td style ='width:30%'>
+									{% for x in "xx" %}
+										<select class="form-control form-control-sm" name="topping">
+												<option value=''>Choose...</option>
+											{% for topping in topping %}	
+												<option value="{{topping.id}}">{{topping.name}}</option>
+											{% endfor %}
+		
+										</select>
+									{% endfor %}
+							</td>
+							{% elif  reg_pizza.amount_toppings == 3 %}
+							<td style ='width:30%'>
+									{% for x in "xxx" %}
+										<select class="form-control form-control-sm" name="topping">
+												<option value=''>Choose...</option>
+											{% for topping in topping %}	
+												<option value="{{topping.id}}">{{topping.name}}</option>
+											{% endfor %}
+		
+										</select>
+									{% endfor %}
+							</td>
+							{% elif  reg_pizza.amount_toppings == 5 %}
+							<td style ='width:30%'>
+									{% for x in "xxxxx" %}
+										<select class="form-control form-control-sm" name="topping">
+												<option value=''>Choose...</option>
+											{% for topping in topping %}	
+												<option value="{{topping.id}}">{{topping.name}}</option>
+											{% endfor %}
+		
+										</select>
+									{% endfor %}
+							</td>
+							{% endif %}
+								<td style="width: 10%" class="text-center">${{reg_pizza.price_small}}
+									<div class="text-center">	
+										<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top add-icon" name="size" value="small">
+									</div>
+								</td>
+								<td style="width: 10%" class="text-center">${{reg_pizza.price_large}}
+									<div class="text-center">	
+											<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top add-icon" name="size" value="large">
+									</div>
+								</td>
+						</form>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+
+		<h6 class='text-center'>Sicilian Pizza</h6>
+		<table class="table">
+				<thead>
+				<tr>
+						<th scope="col" style="width: 50%">Kind</th>
+						<th scope="col" style="width: 30%" class="text-center">Toppings</th>
+						<th scope="col" style="width: 10%" class="text-center">Small</th>
+						<th scope="col" style="width: 10%" class="text-center">Large</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for syc_pizza in syc_pizza %}
+				<tr>
+				<form action="{% url 'order' 'Syc_pizza' syc_pizza.id %}">
+						<td style="width: 50%">{{syc_pizza.kind}}</td>
+					{% if syc_pizza.amount_toppings == 0 %}
+						<td style="width: 30%"></td>
+					{% elif  syc_pizza.amount_toppings == 1 %}
+						<td style ='width:30%'>
+								{% for x in "x" %}
+									<select class="form-control form-control-sm" name="topping">
+											<option value=''>Choose...</option>
+										{% for topping in topping %}	
+											<option value="{{topping.id}}">{{topping.name}}</option>
+										{% endfor %}
+
+									</select>
+								{% endfor %}
+						</td>
+					{% elif  syc_pizza.amount_toppings == 2 %}
+					<td style ='width:30%'>
+							{% for x in "xx" %}
+								<select class="form-control form-control-sm" name="topping">
+										<option value=''>Choose...</option>
+									{% for topping in topping %}	
+										<option value="{{topping.id}}">{{topping.name}}</option>
+									{% endfor %}
+
+								</select>
+							{% endfor %}
+					</td>
+					{% elif  syc_pizza.amount_toppings == 3 %}
+					<td style ='width:30%'>
+							{% for x in "xxx" %}
+								<select class="form-control form-control-sm" name="topping">
+										<option value=''>Choose...</option>
+									{% for topping in topping %}	
+										<option value="{{topping.id}}">{{topping.name}}</option>
+									{% endfor %}
+
+								</select>
+							{% endfor %}
+					</td>
+					{% elif  syc_pizza.amount_toppings == 5 %}
+					<td style ='width:30%'>
+							{% for x in "xxxxx" %}
+								<select class="form-control form-control-sm" name="topping">
+										<option value=''>Choose...</option>
+									{% for topping in topping %}	
+										<option value="{{topping.id}}">{{topping.name}}</option>
+									{% endfor %}
+
+								</select>
+							{% endfor %}
+					</td>
+					{% endif %}
+						<td style="width: 10%" class="text-center">${{syc_pizza.price_small}}
+							<div class="text-center">	
+								<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top add-icon" name="size" value="small">
+							</div>
+						</td>
+						<td style="width: 10%" class="text-center">${{syc_pizza.price_large}}
+							<div class="text-center">	
+									<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top add-icon" name="size" value="large">
+							</div>
+						</td>
+				</form>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<h6 class='text-center'>Subs</h6>
+		<table class="table">
+				<thead>
+				<tr>
+						<th scope="col" style="width: 50%">Kind</th>
+						<th scope="col" style="width: 30%">Addons</th>
+						<th scope="col" style="width: 10%" class="text-center">Small</th>
+						<th scope="col" style="width: 10%" class="text-center">Large</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for sub in sub %}
+				<tr>
+						<form action="{% url 'order' 'Sub' sub.id %}">
+							<td style="width: 50%" name="kind" value="{{sub.name}}">{{sub.name}} </td>
+						
+							<td style="width: 30%">
+								<!-- Iterate through sub_addons -->
+								{% for sub_addon in sub_addon %}
+									<!-- in case if sub does have only 1 addon add only Extra Cheese addon-->
+									{% if sub.amount_addons == 1 %}
+										{% if sub_addon.id == 5 %}
+											<div class="form-check">
+												<input class="form-check-input" name="addon" type="checkbox" value="{{ sub_addon.id }}">
+												<label class="form-check-label" for="addon">
+												{{ sub_addon.name }} (${{ sub_addon.price }})
+												</label>
+											</div>
+										{% endif %}
+									<!-- in case if sub has more addons add every addon -->
+									{% else %}
+									<div class="form-check">
+										<input class="form-check-input"  name="addon" type="checkbox" value="{{ sub_addon.id }}">
+										<label class="form-check-label" for="addon">
+										{{ sub_addon.name }} (${{ sub_addon.price }})
+										</label>
+									</div>
+									{% endif %}
+								{% endfor %}
+
+							</td>
+							<!--if sub exists set price onto page-->
+							{% if sub.price_small != 0 %}
+								<td style="width: 10%" class="text-center" >${{sub.price_small}}
+									<div class="text-center">	
+										<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top add-icon" name="size" value="small">
+									</div>
+								</td>
+							<!-- leave blank field else-->
+							{% else %}
+								<td style="width: 10%"></td>	
+							{% endif %}	
+							<!--if sub exists set price onto page-->
+							{% if sub.price_large != 0 %}					
+								<td style="width: 10%" class="text-center">${{sub.price_large}}
+									<div class="text-center">	
+										<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top add-icon" name="size" value="large">
+									</div>
+								</td>
+							<!-- leave blank field else-->
+							{% else %}
+								<td style="width: 10%"></td>	
+							{% endif %}
+						</form>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<h6 class='text-center'>Pasta</h6>
+		<table class="table">
+				<thead>
+				<tr>
+					<th scope="col" style="width: 90%">Kind</th>
+					<th scope="col" style="width: 10% " class="text-center">Price</th>
+		
+				</tr>
+				</thead>
+				<tbody>
+
+				{% for pasta in pasta %}
+
+				<tr>
+				<form action="{% url 'order' 'Pasta' pasta.id%}">
+						<td style="width: 90%">{{pasta.name}}</td>
+						<td style="width: 10%" class="text-center">${{pasta.price}}
+								<div class="text-center">	
+										<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top add-icon">
+								</div>
+						</td>
+				</form>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<h6 class='text-center'>Salads</h6>
+		<table class="table">
+				<thead>
+				<tr>
+						<th scope="col" style="width: 90%">Kind</th>
+						<th scope="col" style="width: 10%" class="text-center" >Price</th>
+
+				</tr>
+				</thead>
+				<tbody>
+				{% for salad in salad %}
+				<tr>
+				
+				<form action="{% url 'order' 'Salad' salad.id%}">
+					<td style="width: 90%" >{{salad.name}}</td>
+					<td style="width: 10%" class="text-center">${{salad.price}}
+							<div class="text-center">	
+									<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top add-icon">
+							</div>
+					</td>
+					
+				</form>
+			
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<h6 class='text-center'>Dinner platters</h6>
+		<table class="table">
+				<thead>
+				<tr>
+						<th scope="col" style="width: 80%">Kind</th>
+						<th scope="col" style="width: 10%" class="text-center">Small</th>
+						<th scope="col" style="width: 10% " class="text-center">Large</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for dinner_platter in dinner_platter %}
+
+				<tr>
+				<form action="{% url 'order' 'Dinner_platter' dinner_platter.id%}">
+		
+						<td  style="width: 80%">{{dinner_platter.name}}</td>
+						<td style="width: 10%" class="text-center">${{dinner_platter.price_small}}
+						<div class="text-center">	
+								<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top add-icon" name="size" value="small">
+							</div>
+						</td>
+						<td style="width: 10%" class="text-center">${{dinner_platter.price_large}}
+						<div class="text-center">	
+								<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top add-icon" name="size" value="large">
+							</div>
+
+						</td>
+				</form>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="col-3 col-sm-3 col-md-3 col-xl-3 cart" >
+		
+		<h5>Shopping cart</h5>
+		<h6 > &#160; </h6>
+		{% if total.price__sum != None %}
+		<table class="table">
+			<thead>
+			<tr>
+
+				
+					<th scope="col" style="width: 90%">Order</th>
+					<th scope="col" style="width: 10%" class="text-center">Price</th>
+			</tr>
+			</thead>
+			<tbody>
+
+				{% for order in orders %}
+					{% if not order.ordered %}
+						{% if order.dish == "Sub" %}
+						<tr>
+							<td  style="width: 90%"><b>{{order.dish}} <br> {{order.kind}} ({{order.size.name}})</b> {% for addon in order.addon.all %} <br> {{addon.name}} {% endfor %} </td>
+							<td style="width: 10%" > ${{order.price}}
+								<form action="{% url 'order_delete' order.id%}">
+									<div class="text-center">	
+										<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top cart-icon" name="path" value="{{request.path}}">
+									</div>
+								</form>
+							</td>
+							
+						</tr>
+						{% elif order.dish == "Sicilian pizza" or order.dish == "Regular pizza"%}
+						<tr>
+							<td style="width: 90%" ><b>{{order.dish}} <br> {{order.kind}} ({{order.size.name}})  </b> {% for topping in order.topping.all %} <br> {{topping.name}} {% endfor %}</td>
+							<td style="width: 10%" > ${{order.price}}
+								<form action="{% url 'order_delete' order.id%}">
+									<div class="text-center">	
+										<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top cart-icon" name="path" value="{{request.path}}">
+									</div>
+								</form>
+							</td>
+						</tr>
+						{% elif order.size.name %}
+						<tr>
+							<td  style="width: 90%"><b>{{order.dish}} <br> {{order.kind}} ({{order.size.name}})</b></td>
+							<td style="width: 10%" >${{order.price}}
+								<form action="{% url 'order_delete' order.id%}">
+									<div class="text-center">	
+										<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top cart-icon" name="path" value="{{request.path}}">
+									</div>
+								</form>
+							</td>
+						</tr>
+						{% else %}
+						<tr>
+							<td  style="width: 90%"><b>{{order.dish}} <br> {{order.kind}}</b></td>
+							<td style="width: 10%"> ${{order.price}}
+								<form action="{% url 'order_delete' order.id%}">
+									<div class="text-center">	
+										<input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top cart-icon" name="path" value="{{request.path}}">
+									</div>
+								</form>
+							</td>
+						</tr>
+						{% endif %}
+						
+					{% endif %}
+				{% endfor %}
+					<tr>
+						<td style="width: 90%"><b>TOTAL</b></td>
+						<td style="width: 10%"> <b>${{total.price__sum}}</b></td>
+					</tr>
+			</tbody>
+
+		</table>
+
+		<a  href ='{% url "purchase" %}' class="btn btn-warning btn-block">Place an order</a>
+		{% endif %}
+
+	</div>
+</div>
+{% endblock %}

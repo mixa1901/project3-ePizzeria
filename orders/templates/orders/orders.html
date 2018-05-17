@@ -1,0 +1,118 @@
+{% extends "orders/layout.html" %}
+
+{% block title %}
+    Orders
+{% endblock %}
+
+{% block navigation %}
+    <a href="{% url 'logout' %}" class="nav-item nav-link">Logout ({{ username }})</a>
+{% endblock %}
+
+
+{% block main %}
+
+<table class="table">
+        <thead>
+        <tr>
+
+            
+                <th scope="col" style="width: 80%">Order</th>
+                <th scope="col" style="width: 10%" class="text-center">Price</th>
+                <th scope="col" style="width: 10%" class="text-center">Status</th>
+        </tr>
+        </thead>
+        <tbody class="cart-table">
+
+            {% for order in orders %}
+                {% if order.ordered %}
+                    {% if order.dish == "Sub" %}
+                    <tr>
+                        <td  style="width: 80%"><b>{{order.dish}} <br> {{order.kind}} ({{order.size.name}})</b> {% for addon in order.addon.all %} <br> {{addon.name}} {% endfor %} </td>
+                        <td style="width: 10%" class="text-center"> ${{order.price}}
+								<form action="{% url 'order_delete' order.id%}">
+                                        <div >	
+                                            <input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top cart-icon" name="path" value="{{request.path}}">
+                                        </div>
+                                </form>
+                                <td  style="width: 10%" class='text-center'>
+                                {% if order.status == 'p' %}
+                                    Pending
+                                {% elif order.status == 'd' %}
+                                    Declined
+                                {% else %}
+                                    Completed    
+                                {% endif %}
+                                </td>
+                        </td>
+                        
+                    </tr>
+                    {% elif order.dish == "Sicilian pizza" or order.dish == "Regular pizza"%}
+                    <tr>
+                        <td style="width: 80%" ><b>{{order.dish}} <br> {{order.kind}} ({{order.size.name}})  </b> {% for topping in order.topping.all %} <br> {{topping.name}} {% endfor %}</td>
+                        <td style="width: 10%"  class="text-center"> ${{order.price}}
+								<form action="{% url 'order_delete' order.id%}">
+                                        <div >	
+                                            <input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top cart-icon" name="path" value="{{request.path}}">
+                                        </div>
+                                </form>
+                        </td>
+                        <td  style="width: 10%" class='text-center'>
+                                {% if order.status == 'p' %}
+                                    Pending
+                                {% elif order.status == 'd' %}
+                                    Declined
+                                {% else %}
+                                    Completed   
+                                {% endif %} 
+                        </td>
+                    </tr>
+                    {% elif order.size.name %}
+                    <tr>
+                        <td  style="width: 80%"><b>{{order.dish}} <br> {{order.kind}} ({{order.size.name}})</b></td>
+                        <td style="width: 10%" class="text-center">${{order.price}}
+								<form action="{% url 'order_delete' order.id%}">
+                                        <div >	
+                                            <input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top cart-icon" name="path" value="{{request.path}}">
+                                        </div>
+                                </form>
+                        </td>
+                        <td  style="width: 10%" class='text-center'>
+                                {% if order.status == 'p' %}
+                                    Pending
+                                {% elif order.status == 'd' %}
+                                    Declined
+                                {% else %}
+                                    Completed  
+                                {% endif %}  
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td  style="width: 80%"><b>{{order.dish}} <br> {{order.kind}}</b></td>
+                        <td style="width: 10%"  class="text-center"> ${{order.price}}
+								<form action="{% url 'order_delete' order.id%}">
+                                        <div>	
+                                            <input type="image" src="https://use.fontawesome.com/releases/v5.0.10/svgs/regular/times-circle.svg" width="25" height="25" class="d-inline-block align-top cart-icon" name="path" value="{{request.path}}">
+                                        </div>
+                                </form>
+                        </td>
+                        <td  style="width: 10%" class='text-center'>
+                                {% if order.status == 'p' %}
+                                    Pending
+                                {% elif order.status == 'd' %}
+                                    Declined
+                                {% else %}
+                                    Completed    
+                                {% endif %}
+                        </td>      
+                    </tr>
+                    {% endif %}
+                    
+                {% endif %}
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <a  href ='{% url "index" %}' class="btn btn-light float-left">Turn back</a>
+{% endblock %}

@@ -1,0 +1,49 @@
+body {
+    background-color: white;
+    color: black;
+}
+
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: black;
+}
+
+ul {
+    list-style-type: none;
+}
+
+main {
+    margin-top: 5px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.form-control:focus {
+    border-color: #000000;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(0, 0, 0, 0.5);
+}
+
+.cart {
+    border-left: 5px solid #f8f9fa;
+
+}
+
+
+.add-icon {
+    transform: rotate(45deg);
+}
+
+.add-icon:hover, .cart-icon:hover {
+    filter: invert(50%);
+}
+
+.form-control-sm {
+   margin-bottom: 5px; 
+}
+

@@ -1,0 +1,36 @@
+{% extends "orders/layout.html" %}
+
+{% block title %}
+    Log in
+{% endblock %}
+
+{% block navigation %}
+		<a href="{% url 'registration' %}" class="nav-item nav-link">Sign up</a>
+{% endblock %}
+
+
+{% block main %}
+
+			{% if message is not None %}
+			<div class="alert alert-warning" role="alert">
+					{{ message }}
+			</div>
+			{% endif %}
+		  <h2>Logging in</h2>
+		  <form action='{% url "login" %}' method="post">
+			{% csrf_token %}
+		    <div class="form-group">
+		      <label for="username">Username:</label>
+		      <input autocomplete="off" type="text" autofocus class="form-control" name="username">
+		    </div>
+		    <div class="form-group">
+		      <label for="password">Password:</label>
+		      <input autocomplete="off" type="password" class="form-control" name="password">
+		    </div>
+
+		    <a href='{% url "registration" %}'class="float-left btn btn-light">Haven't already been registered?</a>
+		    <button class="btn btn-light float-right">Submit</button>
+		  </form>
+
+
+{% endblock %}

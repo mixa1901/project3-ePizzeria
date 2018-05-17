@@ -1,0 +1,55 @@
+{% extends "orders/layout.html" %}
+
+{% block title %}
+    Registration
+{% endblock %}
+
+{% block navigation %}
+		<a href="{% url 'login' %}" class="nav-item nav-link">Log in</a>
+{% endblock %}
+
+
+
+
+{% block main %}
+    
+    <h2>Registration</h2>
+
+    {% if message is not None %}
+        <div class="alert alert-warning" role="alert">
+            {{ message }}
+        </div>
+    {% endif %}
+
+    <form action="{% url 'registration' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input autocomplete="off" type="text" autofocus class="form-control" name="username">
+    </div>
+    <div class="form-group">
+        <label for="f_name">First name:</label>
+        <input autocomplete="off" type="text" autofocus class="form-control" name="f_name">
+    </div>
+    <div class="form-group">
+        <label for="l_name">Last name:</label>
+        <input autocomplete="off" type="text" autofocus class="form-control" name="l_name">
+    </div>
+    <div class="form-group">
+            <label for="email">Email address:</label>
+            <input autocomplete="off" type="email" autofocus class="form-control" name="email">
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input autocomplete="off" type="password" class="form-control" name="password">
+    </div>
+    <div class="form-group">
+        <label for="re_password">Repeat password:</label>
+        <input autocomplete="off" type="password" class="form-control" name="re_password">
+    </div>
+
+    <a href='{% url "login" %}'class="float-left btn btn-light">Have you already done registration?</a>
+    <button class="btn btn-light float-right">Register me</button>
+    </form>
+
+{% endblock %}
